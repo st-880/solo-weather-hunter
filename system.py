@@ -1,11 +1,22 @@
 print("[SYSTEM] Weather Hunter Protocol Initiated.")
 
-city = input("Enter city name: ")
-print(f"Fetching weather for: {city}")
+#city = input("Enter city name: ")
+#print(f"Fetching weather for: {city}")
 
 import requests
 import os
 
+fav_file = "favorite.txt"
+
+if os.path.exists(fav_file):
+    with open(fav_file, "r") as f:
+        city = f.read().strip()
+    print(f"[SYSTEM] Using saved city: {city}")
+else:
+    city = input("Enter city name: ")
+    with open(fav_file, "w") as f:
+        f.write(city)
+    print(f"[SYSTEM] Saved '{city}' for next time.")
 
 with open(".env") as f:
     API_KEY = f.read().strip().split("=")[1]
